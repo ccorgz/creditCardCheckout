@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/style.css" />
+    <title>Checkout</title>
+  </head>
+  <body>
+    <main class="mainBox">
+      <section class="cardDataBox">
+        <!-- NUMERO DO CARTÃO -->
+        <div class="inputBox">
+          <label>Número do cartão</label>
+          <input type="text" name="numero" id="inputnumero" />
+        </div>
+
+        <!-- NOME DO CARTÃO -->
+        <div class="inputBox">
+          <label>Nome do cartão</label>
+          <input type="text" name="nome" id="inputnome" />
+        </div>
+
+        <div class="flexRow">
+          <!-- VALIDADE DO CARTÃO -->
+          <div class="inputBox">
+            <label>Validade</label>
+            <input type="text" name="validade" id="inputvalidade" />
+          </div>
+
+          <!-- CVV DO CARTÃO -->
+          <div class="inputBox">
+            <label>CVV</label>
+            <input type="text" name="cvv" id="inputcvv" />
+          </div>
+        </div>
+
+        <!-- APELIDO DO CARTÃO -->
+        <div class="inputBox">
+          <label>Apelido do cartão</label>
+          <input type="text" name="apelido" id="inputapelido" />
+        </div>
+
+        <!-- CPF/CNPJ DO TITULAR DO CARTÃO -->
+        <div class="inputBox">
+          <label>CPF/CNPJ do cartão</label>
+          <input type="text" name="titular" id="inputtitular" />
+        </div>
+
+        <button class="addButton">Adicionar</button>
+      </section>
+
+      <section class="cardModelBox">
+        <div class="card">
+          <div class="cardfront" id="cardfront">
+            <span class="cardtitulo" id="cardtitulo"></span>
+            <span class="cardname" id="cardname"></span>
+            <span class="cardinfo" id="cardinfo">
+              <span class="cardnumber" id="cardnumber"></span>
+              <span class="carddate" id="carddate"></span>
+            </span>
+          </div>
+          <div class="cardback" id="cardback">
+            <div class="cardline"></div>
+            <span class="cardcvv">cvv: <span id="cardcvv"></span></span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+  <script type="text/javascript">
+    const inputnome = document.getElementById("inputnome");
+    const cardname = document.getElementById("cardname");
+    inputnome.oninput = (e) => {
+      e.target.value = e.target.value.toUpperCase().replace(/\d/g, "");
+      cardname.innerHTML = e.target.value;
+    };
+
+    const inputapelido = document.getElementById("inputapelido");
+    inputapelido.oninput = (e) => {
+      e.target.value = e.target.value.toUpperCase().replace(/\d/g, "");
+    };
+
+    const inputcvv = document.getElementById("inputcvv");
+    inputcvv.onfocus = () => {
+      document.getElementById("cardfront").classList.remove("unrotatefront");
+      document.getElementById("cardback").classList.remove("unrotateback");
+      document.getElementById("cardfront").classList.add("rotatefront");
+      document.getElementById("cardback").classList.add("rotateback");
+    };
+    inputcvv.onblur = () => {
+      document.getElementById("cardfront").classList.remove("rotatefront");
+      document.getElementById("cardback").classList.remove("rotateback");
+      document.getElementById("cardfront").classList.add("unrotatefront");
+      document.getElementById("cardback").classList.add("unrotateback");
+    };
+    const cardcvv = document.getElementById("cardcvv");
+    inputcvv.oninput = (e) => {
+      e.target.value = e.target.value.slice(0, 3).replace(/\D/g, "");
+      cardcvv.innerHTML = e.target.value;
+    };
+
+    const inputvalidade = document.getElementById("inputvalidade");
+    const carddate = document.getElementById("carddate");
+    inputvalidade.oninput = (e) => {
+      if (e.target.value.length > 3)
+        e.target.value = e.target.value
+          .replace("/", "")
+          .replace(/(\d{2})(\d{0,2})/, "$1/$2")
+          .slice(0, 5);
+      carddate.innerHTML = e.target.value;
+    };
+
+    const inputnumero = document.getElementById("inputnumero");
+    const cardnumber = document.getElementById("cardnumber");
+    inputnumero.oninput = (e) => {
+      let value = e.target.value
+        .slice(0, 19)
+        .replace(/\D/g, "")
+        .replace(" ", "");
+      if (value.length == 16) {
+        value = e.target.value
+          .replaceAll(" ", "")
+          .replace(/(\d{4})(\d{0,4})(\d{0,4})(\d{0,4})/, "$1 $2 $3 $4")
+          .slice(0, 19);
+      }
+      cardnumber.innerHTML = value;
+      e.target.value = value;
+    };
+
+    const inputtitular = document.getElementById("inputtitular");
+    const cardtitulo = document.getElementById("cardtitulo");
+
+    inputtitular.oninput = (e) => {
+      let value = e.target.value.replace(/\D/g, "").slice(0, 14);
+      if (value.length == 11) {
+        value = value.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+      } else if (value.length == 14) {
+        value = value.replace(
+          /(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,
+          "$1.$2.$3/$4-$5"
+        );
+      } else {
+        cardtitulo.innerHTML = "";
+      }
+      cardtitulo.innerHTML = value;
+      e.target.value = value;
+    };
+  </script>
+</html>

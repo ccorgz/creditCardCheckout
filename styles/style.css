@@ -1,0 +1,254 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100dvh;
+  font-family: "Poppins", sans-serif;
+  background: url("../assets/images/bg1.png");
+  background-size: cover;
+}
+
+*::selection {
+  color: #fff;
+  background-color: #cb2a29;
+}
+
+.mainBox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.cardDataBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  max-height: 70%;
+}
+
+.flexRow {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.inputBox {
+  border: 1px solid #00000040;
+  position: relative;
+  width: 100%;
+  border-radius: 5px;
+  padding: 5px 0;
+}
+
+.inputBox:hover {
+  border: 1px solid #00000090;
+}
+
+.inputBox input {
+  width: calc(100% - 20px);
+  outline: none;
+  border: none;
+  background-color: transparent;
+  padding: 0 10px;
+}
+
+.inputBox label {
+  font-size: 0.9rem;
+  position: absolute;
+  bottom: calc(100% - 0.45rem);
+  left: 5px;
+  background-color: #fff;
+  padding: 0 5px;
+  color: #000000c9;
+}
+
+.addButton {
+  width: 100%;
+  background-color: #cb2a29;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 1.2rem;
+  padding: 10px 0;
+}
+
+.addButton:hover {
+  background-color: #9e1b1b;
+}
+
+.cardModelBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 25px;
+  max-height: 70%;
+  width: clamp(48%, 50%, 90%);
+}
+
+.card {
+  width: 450px;
+  height: 250px;
+  cursor: pointer;
+  position: relative;
+  transition: all .4s ease;
+}
+
+.cardfront {
+  width: calc(100% - 10px);
+  height: calc(100% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 10px 0px 10px 10px;
+  color: #454545;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 10px;
+  background-image: url("../assets/images/cardtexture1.png");
+  z-index: 1;
+  transition: all 0.4s ease;
+}
+.cardfront span {
+  transition: all 0.2s ease;
+}
+
+.cardname {
+  font-size: 1.5rem;
+}
+.cardinfo {
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.cardnumber {
+  font-size: 2rem;
+}
+.card:hover .cardfront {
+  animation: rotatecardfront 0.4s ease forwards !important;
+}
+.card:hover .cardfront span {
+  opacity: 0;
+}
+
+.card:hover .cardback {
+  animation: rotatecardback 0.4s ease forwards !important;
+}
+
+.cardback {
+  width: 100% !important;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotateY(180deg);
+  border-radius: 10px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  border-radius: 10px;
+  background-image: url("../assets/images/cardtexture2.png");
+  z-index: -1;
+  transition: all 0.4s ease;
+}
+
+.rotatefront {
+  animation: rotatecardfront 0.4s ease forwards !important;
+}
+
+.rotateback {
+  animation: rotatecardback 0.4s ease forwards !important;
+}
+
+.unrotatefront {
+  animation: unrotatecardfront 0.4s ease forwards !important;
+}
+
+.unrotateback {
+  animation: unrotatecardback 0.4s ease forwards !important;
+}
+
+.cardcvv {
+  position: absolute;
+  bottom: 20px;
+  right: 15%;
+}
+.cardcvv span {
+  font-size: 1.25rem;
+}
+
+.cardline {
+  background-color: #45454500;
+  height: 2rem;
+  width: 100%;
+  position: absolute;
+  top: 60%;
+}
+
+@keyframes rotatecardfront {
+  from {
+    transform: rotateY(0deg);
+    z-index: 1;
+    opacity: 1;
+  }
+
+  to {
+    transform: rotateY(180deg);
+    z-index: -1;
+    opacity: 0;
+  }
+}
+
+@keyframes rotatecardback {
+  from {
+    transform: rotateY(180deg);
+    z-index: -1;
+  }
+
+  to {
+    transform: rotateY(0deg);
+    z-index: 1;
+  }
+}
+
+@keyframes unrotatecardfront {
+  from {
+    transform: rotateY(180deg);
+    z-index: -1;
+    opacity: 0;
+  }
+  to {
+    transform: rotateY(0deg);
+    z-index: 1;
+    opacity: 1;
+  }
+}
+
+@keyframes unrotatecardback {
+  from {
+    transform: rotateY(0deg);
+    z-index: 1;
+  }
+  to {
+    transform: rotateY(180deg);
+    z-index: -1;
+  }
+}
+
+@media only screen and (max-width: 1024px) {
+  .card {
+    width: 350px;
+    height: 220px;
+    cursor: pointer;
+    position: relative;
+  }
+}
